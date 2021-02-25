@@ -1,0 +1,139 @@
+<!--{% comment %}
+<div class="form-signin">
+  <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+  <label for="inputEmail" class="sr-only">Email address</label>
+  <input
+    type="email"
+    id="inputEmail"
+    class="form-control"
+    placeholder="Email address"
+    required
+    #userEmail
+  />
+  <label for="inputPassword" class="sr-only">Password</label>
+  <input
+    type="password"
+    id="inputPassword"
+    class="form-control"
+    placeholder="Password"
+    required
+    #userPwd
+  />
+  <div class="checkbox mb-3">
+    <label> <input type="checkbox" value="remember-me" /> Remember me </label>
+  </div>
+  <button
+    class="btn btn-lg btn-primary btn-block"
+    type="submit"
+    (click)="authService.SignIn(userEmail.value, userPwd.value)"
+  >
+    Sign in
+  </button>
+  <div class="formGroup">
+    <button type="button" class="btn btn-danger btn-block">
+      Log in with Google
+    </button>
+  </div>
+
+  <div class="forgotPassword">
+    <span routerLink="/forgot-password">Forgot Password?</span>
+  </div>
+
+  <p class="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
+</div>
+{% endcomment %}-->
+<div class="container-fluid px-1 px-md-5 px-lg-1 px-xl-5 py-5 mx-auto">
+  <div class="card card0 border-0">
+    <div class="row d-flex">
+      <div class="col-lg-6">
+        <div class="card1 pb-5">
+          <div class="row px-3 justify-content-center mt-4 mb-5 border-line">
+            <img src="https://i.imgur.com/uNGdWHi.png" class="image" />
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="card2 card border-0 px-4 py-5">
+          <div class="row mb-4 px-3">
+            <h6 class="mb-0 mr-4 mt-2">Sign in with</h6>
+            <div class="google text-center mr-3">
+              <a (click)="authService.GoogleAuth()"
+                ><i class="fa fa-google"></i
+              ></a>
+            </div>
+            <div class="facebook text-center mr-3">
+              <a (click)="authService.FacebookAuth()"
+                ><i class="fa fa-facebook"></i
+              ></a>
+            </div>
+            <div class="twitter text-center mr-3">
+              <div class="fa fa-twitter"></div>
+            </div>
+            <div class="linkedin text-center mr-3">
+              <div class="fa fa-linkedin"></div>
+            </div>
+          </div>
+          <div class="row px-3 mb-4">
+            <div class="line"></div>
+            <small class="or text-center">Or</small>
+            <div class="line"></div>
+          </div>
+          <div class="row px-3">
+            <label class="mb-1">
+              <h6 class="mb-0 text-sm">Email Address</h6>
+            </label>
+            <input
+              class="mb-4"
+              type="text"
+              name="email"
+              required
+              #userEmail
+              placeholder="Enter a valid email address"
+            />
+          </div>
+          <div class="row px-3">
+            <label class="mb-1">
+              <h6 class="mb-0 text-sm">Password</h6>
+            </label>
+            <input
+              type="password"
+              name="password"
+              required
+              #userPwd
+              placeholder="Enter password"
+            />
+          </div>
+          <div class="row px-3 mb-4">
+            <div class="custom-control custom-checkbox custom-control-inline">
+              <input
+                id="chk1"
+                type="checkbox"
+                name="chk"
+                class="custom-control-input"
+              />
+              <label for="chk1" class="custom-control-label text-sm"
+                >Remember me</label
+              >
+            </div>
+            <a href="#" class="ml-auto mb-0 text-sm">Forgot Password?</a>
+          </div>
+          <div class="row mb-3 px-3">
+            <button
+              type="submit"
+              class="btn btn-blue text-center"
+              (click)="authService.SignIn(userEmail.value, userPwd.value)"
+            >
+              Login
+            </button>
+          </div>
+          <div class="row mb-4 px-3">
+            <small class="font-weight-bold"
+              >Don't have an account?
+              <a class="text-danger" routerLink="/register">Register</a></small
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
