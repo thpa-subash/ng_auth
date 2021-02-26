@@ -7,11 +7,28 @@ body {
   height: 16px;
   vertical-align: text-bottom;
 }
+.nav-link {
+  cursor: pointer;
+}
 
 /*
    * Sidebar
    */
+.verify-email-button {
+  float: right;
 
+  font-size: 13px;
+  font-family: Helvetica, Arial, sans-serif;
+  color: #ffffff;
+  text-decoration: none;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 7px 25px;
+  border-radius: 2px;
+  border: 1px solid #ffa73b;
+  display: inline-block;
+  background-color: #ffa73b;
+}
 .sidebar {
   position: fixed;
   top: 0;

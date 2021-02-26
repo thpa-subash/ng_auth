@@ -95,6 +95,28 @@
 
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
       <div
+        class="alert alert-danger mt-3"
+        role="alert"
+        *ngIf="this.authService.userState.emailVerified == false"
+      >
+        <p>
+          Hi
+          {{
+            this.authService.userState.displayName
+              ? " this.authService.userState.displayName"
+              : "Guest"
+          }}, 
+          Please Verify your Email Account
+          <b>{{ this.authService.userState.email }}</b>
+          <button
+            (click)="authService.SendVerificationMail()"
+            class="verify-email-button"
+          >
+            Send Verification Email
+          </button>
+        </p>
+      </div>
+      <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
       >
         <h1 class="h2">Dashboard</h1>

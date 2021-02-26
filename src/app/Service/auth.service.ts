@@ -15,6 +15,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   userState: any;
+  errorMessage: any;
 
   constructor(
     private afs: AngularFirestore,
@@ -26,6 +27,7 @@ export class AuthService {
       if (user) {
         this.userState = user;
         localStorage.setItem('user', JSON.stringify(this.userState));
+        this.router.navigate(['dashboard']);
         JSON.parse(localStorage.getItem('user'));
       } else {
         localStorage.setItem('user', null);
@@ -38,13 +40,20 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then((value) => {
         this.ngZone.run(() => {
-          this.router.navigate(['dashboard']);
+          console.log(value);
+          if (value.user.emailVerified == true) {
+            this.router.navigate(['dashboard']);
+            console.log(value);
+          } else {
+            this.SendVerificationMail();
+          }
         });
         this.SetUserData(value.user);
         console.log('Nice, it worked!');
       })
       .catch((err) => {
         console.log('Something went wrong:', err.message);
+        this.errorMessage = err.message;
       });
   }
   SignUp(email: string, password: string) {
@@ -57,6 +66,7 @@ export class AuthService {
       })
       .catch((err) => {
         console.log('Something went wrong:', err.message);
+        this.errorMessage = err.message;
       });
   }
   SendVerificationMail() {
@@ -68,7 +78,8 @@ export class AuthService {
   }
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user'));
-    return user !== null && user.emailVerified !== false ? true : false;
+    // return user !== null && user.emailVerified !== false ? true : false;
+    return user !== null;
   }
   GoogleAuth() {
     return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
@@ -83,7 +94,7 @@ export class AuthService {
         this.SetUserData(result.user);
       })
       .catch((error) => {
-        window.alert(error);
+        this.errorMessage = error;
       });
   }
   FacebookAuth() {
@@ -102,6 +113,7 @@ export class AuthService {
       })
       .catch((error) => {
         console.log(error);
+        this.errorMessage = error;
       });
   }
   SetUserData(user) {
@@ -119,7 +131,9 @@ export class AuthService {
       merge: true,
     });
   }
-
+  errorData() {
+    return this.errorMessage;
+  }
   logout() {
     return this.firebaseAuth.signOut().then(() => {
       localStorage.removeItem('user');
