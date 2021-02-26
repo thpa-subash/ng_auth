@@ -21,7 +21,8 @@ export class AuthService {
     private afs: AngularFirestore,
     private firebaseAuth: AngularFireAuth,
     private router: Router,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private firestore: AngularFirestore
   ) {
     this.firebaseAuth.authState.subscribe((user) => {
       if (user) {
@@ -56,13 +57,26 @@ export class AuthService {
         this.errorMessage = err.message;
       });
   }
-  SignUp(email: string, password: string) {
+  SignUp(email: string, password: string, phn: number) {
     return this.firebaseAuth
       .createUserWithEmailAndPassword(email, password)
       .then((value) => {
-        this.SendVerificationMail();
-        this.SetUserData(value.user);
-        console.log('Success!', value);
+        let user = {
+          id: value.user.uid,
+          username: value.user.email,
+          phoneNumber: phn,
+          role: 'user',
+        };
+        this.firestore
+          .collection('users')
+          .add(user)
+          .then((user) => {
+            user.get().then((x) => {
+              this.SendVerificationMail();
+              this.SetUserData(x.data());
+              console.log('Success!', x.data());
+            });
+          });
       })
       .catch((err) => {
         console.log('Something went wrong:', err.message);
